@@ -7,6 +7,7 @@ Steps:
 2. Creating word dictionary.
 3. Feature extraction process.
 4. Training the classifier.
+5. Run classifier on the test set.
 
 #### File Structure:
 	.
