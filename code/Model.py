@@ -1,5 +1,4 @@
 import math
-import matplotlib.pyplot as plt
 
 SPAM = 'spam'
 HAM = 'ham'
