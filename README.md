@@ -19,7 +19,7 @@ Steps:
 		├── train		# Training dataset
 		├── test	        # Test dataset
 	├── report			# Documentation for the project
-  	├── results      		# Generated Output
+  	├── results      		
 		├── model.txt		# Saved Model
 		├── result.txt  	# Classification Results
 	└── README.md
