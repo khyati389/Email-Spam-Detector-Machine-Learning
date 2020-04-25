@@ -37,6 +37,16 @@ class TextProcessor:
                     self.word_frequency[word.lower()] = 1
     
     '''
+    Returns the unique words from document
+    '''
+    def getWordsFromDocument(self, words, wordsDict):
+        for word in words:
+            if word != '':
+                if word.lower() not in wordsDict:
+                    wordsDict[word.lower()] = 0
+        return wordsDict
+
+    '''
     Calculate Frequency Of Word in a class
     where classType: (spam|ham)
     '''
@@ -64,15 +74,14 @@ class TextProcessor:
     where; P(word | class) = ____________________________________________________________________________
                                 (total number of words in class) + delta * (size of vocabulary or corpus)
     '''
-    def calculateCondProb(self, word, classType):
+    def calculateCondProb(self, frequency, classType):
         freqWord = 0
         sizeOfCorpus = self.sizeOfCorpus
+        freqWord = frequency
 
         if(classType == 'ham'):
-            freqWord = self.words_Ham[word]
             totalNoOfWords = self.sizeOfHam
         else:
-            freqWord = self.words_Spam[word]
             totalNoOfWords = self.sizeOfSpam
         
         prob = ( (freqWord + self.Delta) / (totalNoOfWords + (self.Delta * sizeOfCorpus)) )
@@ -125,8 +134,8 @@ class TextProcessor:
     '''
     def buildVocabulary(self):
         self.sizeOfCorpus = len(self.word_frequency)
-        self.sizeOfHam = len(self.words_Ham)
-        self.sizeOfSpam = len(self.words_Spam)
+        self.sizeOfHam = sum(self.words_Ham.values())
+        self.sizeOfSpam = sum(self.words_Spam.values())
 
         sortedCorpus = sorted(self.word_frequency.keys(), key=lambda x:x.lower())
 
@@ -136,12 +145,20 @@ class TextProcessor:
 
             if key in self.words_Ham:
                 self.setFreqHam(key, self.words_Ham[key])
-                probability = self.calculateCondProb(key, 'ham')
+                probability = self.calculateCondProb(self.words_Ham[key], 'ham')
+                self.setConditinalProbHam(key, probability)
+            else:
+                self.setFreqHam(key, 0)
+                probability = self.calculateCondProb(0, 'ham')
                 self.setConditinalProbHam(key, probability)
                 
             if key in self.words_Spam:
                 self.setFreqSpam(key, self.words_Spam[key])
-                probability = self.calculateCondProb(key, 'spam')
+                probability = self.calculateCondProb(self.words_Spam[key], 'spam')
+                self.setConditinalProbSpam(key, probability)
+            else:
+                self.setFreqSpam(key, 0)
+                probability = self.calculateCondProb(0, 'spam')
                 self.setConditinalProbSpam(key, probability)
     
     '''
@@ -159,15 +176,6 @@ class TextProcessor:
     '''
     def getWordsSpam(self):
         return self.words_Spam
-    
-    '''
-    Generate feature vector and output vector
-    '''
-    def generateFeatureVector(self):
-        # TODO
-        trainX = []
-        trainY = []
-
 
 
 
@@ -186,18 +194,40 @@ class FileProcessor:
         return os.listdir(path)
     
     '''
+    Returns the file name
+    '''
+    def getDocumentName(self, file):
+        docBase = os.path.basename(file.__getattribute__('name'))
+        docName = os.path.splitext(docBase)[0]
+        return docName
+
+    '''
     Indentifies the class type (spam | ham) from the file name
     '''
     def getClassType(self, file):
-        docBase = os.path.basename(file.__getattribute__('name'))
-        docName = os.path.splitext(docBase)[0]
+        docName = self.getDocumentName(file)
 
         if re.search('(.*)-(ham)-(.*)', docName):
             return 'ham'
         else:
             return 'spam'
 
-    
+    '''
+    Returns the number of total documents, spam documents and
+    ham documents in a directory
+    '''
+    def getNumOfDocuments(self, files):
+        totalDocuments = len(files)
+        HamDocuments = 0
+        SpamDocuments = 0
+        for file in files:
+            if re.search('(.*)-(ham)-(.*)', file):
+                HamDocuments += 1
+            else:
+                SpamDocuments += 1    
+
+        return totalDocuments, HamDocuments, SpamDocuments
+        
     '''
     read files line by line and processes it from TextProcessor
     '''
@@ -250,7 +280,22 @@ class FileProcessor:
     Store Classification Results in given file
     '''
     def storeClassificationResult(self, file, result):
-        # TODO
-        pass
+        try:
+            with open(file, "w") as f:
+                lineNum = 0
+                for key, value in result.items():
+                    lineNum += 1
+                    lineString = (str(lineNum) + self.space 
+                    + str(key) + self.space
+                    + str(value[0]) + self.space 
+                    + str(value[1]) + self.space 
+                    + str(value[2]) + self.space 
+                    + str(value[3]) + self.space 
+                    + str(value[4]) +"\r")
+
+                    f.write(lineString)
+
+        finally:
+            f.close()
 
     
