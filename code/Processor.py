@@ -159,5 +159,13 @@ class TextProcessor:
     def getWordsSpam(self):
         return self.words_Spam
     
+    '''
+    Generate feature vector and output vector
+    '''
+    def generateFeatureVector(self):
+        # TODO
+        trainX = []
+        trainY = []
+    
 
     
