@@ -65,7 +65,7 @@ class FileProcessor:
         2 airplane 3 0.003 40 0.4
         3 password 40 0.4 50 0.03
         4 zucchini 0.7 0.003 0 0.000001
-        
+
         where; each word is seperated by two spaces,
         and followed by carriage return at the end of line
     '''
@@ -88,9 +88,9 @@ class FileProcessor:
             f.close()
 
     '''
-    Store results in given file
+    Store Classification Results in given file
     '''
-    def storeResults(self, file, result):
+    def storeClassificationResult(self, file, result):
         # TODO
         pass
 
