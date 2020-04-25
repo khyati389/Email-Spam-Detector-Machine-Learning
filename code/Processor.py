@@ -6,8 +6,8 @@ class TextProcessor:
 
     def __init__(self):
         self.word_frequency = {}
-        self.words_Ham = []
-        self.words_Spam = []
+        self.words_Ham = {}
+        self.words_Spam = {}
         self.vocabulary = {}
     
     '''
@@ -35,8 +35,20 @@ class TextProcessor:
     Calculate Frequency Of Word in a class
     where classType: (spam|ham)
     '''
-    def frequencyCountInClass(self, classType):
-        pass
+    def updatefrequencyCountInClass(self, classType, words):
+        for word in words:
+            if word != '':
+                if(classType == 'ham'):
+                    if word.lower() in self.words_Ham:
+                        self.words_Ham[word.lower()] += 1
+                    else:
+                        self.words_Ham[word.lower()] = 1
+                        
+                if(classType == 'spam'):
+                    if word.lower() in self.words_Spam:
+                        self.words_Spam[word.lower()] += 1
+                    else:
+                        self.words_Spam[word.lower()] = 1
     
     '''
     Function to calculate smoothed conditional probability of words against classType
@@ -53,6 +65,22 @@ class TextProcessor:
     '''
     def getWordFrequency(self):
         return self.word_frequency
+    
+    '''
+    Returns the frequency of word in class Ham
+    
+    e.g words_Ham = {word : count}
+    '''
+    def getWordsHam(self):
+        return self.words_Ham
+    
+    '''
+    Returns the frequency of word in class Spam
+    
+    e.g words_Spam = {word : count}
+    '''
+    def getWordsSpam(self):
+        return self.words_Spam
     
     '''
     Returns vocabulary created from Train data
