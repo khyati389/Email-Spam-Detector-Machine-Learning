@@ -107,20 +107,20 @@ class TextProcessor:
         self.vocabulary[word] = result
 
     def setFreqHam(self, word, value):
-        self.getVocabulary().get(word, "")[0] = value
+        self.vocabulary.get(word, "")[0] = value
 
     def setFreqSpam(self, word, value):
-        self.getVocabulary().get(word, "")[2] = value
+        self.vocabulary.get(word, "")[2] = value
         pass
 
     def setConditinalProbHam(self, word, value):
-        self.getVocabulary().get(word, "")[1] = value
+        self.vocabulary.get(word, "")[1] = value
 
     def setConditinalProbSpam(self, word, value):
-        self.getVocabulary().get(word, "")[3] = value
-
+        self.vocabulary.get(word, "")[3] = value
+    
     '''
-    build vocabulary from created word dictionaries
+    build sorted vocabulary from created word dictionaries
     '''
     def buildVocabulary(self):
         # Create getter and setter for below properties
@@ -128,7 +128,10 @@ class TextProcessor:
         self.sizeOfHam = len(self.words_Ham)
         self.sizeOfSpam = len(self.words_Spam)
 
-        for key, value in self.word_frequency.items():
+        sortedCorpus = sorted(self.word_frequency.keys(), key=lambda x:x.lower())
+
+        for key in sortedCorpus:
+            value = self.word_frequency[key]
             self.setVocabulary(key, [0, 0.0, 0, 0.0])
 
             if key in self.words_Ham:
@@ -139,7 +142,7 @@ class TextProcessor:
             if key in self.words_Spam:
                 self.setFreqSpam(key, self.words_Spam[key])
                 probability = self.calculateCondProb(key, 'spam')
-                self.setConditinalProbSpam(key, probability) 
+                self.setConditinalProbSpam(key, probability)
     
     '''
     Returns the frequency of word in class Ham

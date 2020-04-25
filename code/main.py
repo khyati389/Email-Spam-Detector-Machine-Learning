@@ -19,7 +19,7 @@ FileProcessor class which reads and processes files
 class FileProcessor:
 
     def __init__(self):
-        pass    
+        self.space = "  "
     
     '''
     function to get list of files in a directory
@@ -41,7 +41,7 @@ class FileProcessor:
 
     
     '''
-    read files line by line and processes it
+    read files line by line and processes it from TextProcessor
     '''
     def processFiles(self, files, path):
         for file in files:
@@ -62,8 +62,22 @@ class FileProcessor:
     Store Vocabulary in given file
     '''
     def storeVocabulary(self, file, vocabulary):
-        # TODO
-        pass
+        try:
+            with open(file, "w") as f:
+                lineNum = 0
+                for key, value in vocabulary.items():
+                    lineNum += 1
+                    lineString = (str(lineNum) + self.space 
+                    + str(key) + self.space
+                    + str(value[0]) + self.space 
+                    + str(value[1]) + self.space 
+                    + str(value[2]) + self.space 
+                    + str(value[3]) + "\n")
+
+                    f.write(lineString)
+
+        finally:
+            f.close()
 
     '''
     Store results in given file
@@ -83,7 +97,7 @@ def main():
     
     fileProcessor.processFiles(trainFiles, TRAIN_DOCUMENTS)
     textProcessor.buildVocabulary()
-    print(textProcessor.getVocabulary())
+    fileProcessor.storeVocabulary(VOCABULARY_DOCUMENT, textProcessor.getVocabulary())
 
 if __name__ == "__main__":
     main()
