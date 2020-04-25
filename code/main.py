@@ -1,8 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import sys
-import os
-import re
 from Processor import TextProcessor
 from Processor import FileProcessor
 
