@@ -12,8 +12,9 @@ Steps:
 #### File Structure:
 	.
 	├── code
-		├── TextProcessor.py	# Dataset's Text Processor
-		├── Model.py		# Naive Bays Classifier
+		├── Processor.py	# Dataset's Text Processor
+		├── Model.py		# Naive Bayes Classifier
+		├── Main.py		# Entry point of script
 	├── dataset
 		├── train		# Training dataset
 		├── test	        # Test dataset
