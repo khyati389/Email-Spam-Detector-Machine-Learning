@@ -9,6 +9,10 @@ class TextProcessor:
         self.words_Ham = {}
         self.words_Spam = {}
         self.vocabulary = {}
+        self.Delta = 0.5
+        self.sizeOfHam = 0
+        self.sizeOfSpam = 0
+        self.sizeOfCorpus = 0
     
     '''
     Tokenize the given text into words
@@ -51,12 +55,27 @@ class TextProcessor:
                         self.words_Spam[word.lower()] = 1
     
     '''
-    Function to calculate smoothed conditional probability of words against classType
+    returns smoothed conditional probability of words against classType
     where classType: (spam|ham)
     smoothed conditional Probabilty = P(word | classType)
+
+                                                (frequency of word in class) + delta
+    where; P(word | class) = ____________________________________________________________________________
+                                (total number of words in class) + delta * (size of vocabulary or corpus)
     '''
-    def calculateCondProb(self, classType):
-        pass
+    def calculateCondProb(self, word, classType):
+        freqWord = 0
+        sizeOfCorpus = self.sizeOfCorpus
+
+        if(classType == 'ham'):
+            freqWord = self.words_Ham[word]
+            totalNoOfWords = self.sizeOfHam
+        else:
+            freqWord = self.words_Spam[word]
+            totalNoOfWords = self.sizeOfSpam
+        
+        prob = ( (freqWord + self.Delta) / (totalNoOfWords + (self.Delta * sizeOfCorpus)) )
+        return prob
     
     '''
     Returns the frequency of word in all documents
@@ -65,6 +84,62 @@ class TextProcessor:
     '''
     def getWordFrequency(self):
         return self.word_frequency
+    
+    '''
+    Returns vocabulary created from Train data
+    '''
+    def getVocabulary(self):
+        return self.vocabulary
+    
+    '''
+    Add Word and it's result in Vocabulary
+    
+    where;
+    word = unique word
+    result =  [3, 0.003, 40, 0.4]
+            where; result is a list
+                index 0: The frequency of word in the class ham
+                index 1: The smoothed conditional probability of word in the class ham, P(word | ham)
+                index 2: The frequency of word in the class spam
+                index 3: The smoothed conditional probability of word in spam, P(word | spam)
+    '''
+    def setVocabulary(self, word, result):
+        self.vocabulary[word] = result
+
+    def setFreqHam(self, word, value):
+        self.getVocabulary().get(word, "")[0] = value
+
+    def setFreqSpam(self, word, value):
+        self.getVocabulary().get(word, "")[2] = value
+        pass
+
+    def setConditinalProbHam(self, word, value):
+        self.getVocabulary().get(word, "")[1] = value
+
+    def setConditinalProbSpam(self, word, value):
+        self.getVocabulary().get(word, "")[3] = value
+
+    '''
+    build vocabulary from created word dictionaries
+    '''
+    def buildVocabulary(self):
+        # Create getter and setter for below properties
+        self.sizeOfCorpus = len(self.word_frequency)
+        self.sizeOfHam = len(self.words_Ham)
+        self.sizeOfSpam = len(self.words_Spam)
+
+        for key, value in self.word_frequency.items():
+            self.setVocabulary(key, [0, 0.0, 0, 0.0])
+
+            if key in self.words_Ham:
+                self.setFreqHam(key, self.words_Ham[key])
+                probability = self.calculateCondProb(key, 'ham')
+                self.setConditinalProbHam(key, probability)
+                
+            if key in self.words_Spam:
+                self.setFreqSpam(key, self.words_Spam[key])
+                probability = self.calculateCondProb(key, 'spam')
+                self.setConditinalProbSpam(key, probability) 
     
     '''
     Returns the frequency of word in class Ham
@@ -82,25 +157,5 @@ class TextProcessor:
     def getWordsSpam(self):
         return self.words_Spam
     
-    '''
-    Returns vocabulary created from Train data
-    '''
-    def getVocabulary(self):
-        return self.vocabulary
-    
-    '''
-    Add Word and it's result in Vocabulary
-    
-    where;
-    word = unique word
-    result =  3 0.003 40 0.4
-            where; result is a tuple
-                index 0: The frequency of word in the class ham
-                index 1: The smoothed conditional probability of word in the class ham, P(word | ham)
-                index 2: The frequency of word in the class spam
-                index 3: The smoothed conditional probability of word in spam, P(word | spam)
-    '''
-    def setVocabulary(self, word, result):
-        self.vocabulary[word] = result
 
     

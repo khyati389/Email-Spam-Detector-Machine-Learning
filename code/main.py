@@ -7,6 +7,9 @@ from Processor import TextProcessor
 
 TRAIN_DOCUMENTS = "dataset/train/"
 TEST_DOCUMEMENTS = "dataset/test/"
+VOCABULARY_DOCUMENT = "results/model.txt"
+RESULT_DOCUMENT = "results/result.txt"
+
 
 textProcessor = TextProcessor()
 
@@ -54,6 +57,20 @@ class FileProcessor:
 
             finally:
                 f.close()
+    
+    '''
+    Store Vocabulary in given file
+    '''
+    def storeVocabulary(self, file, vocabulary):
+        # TODO
+        pass
+
+    '''
+    Store results in given file
+    '''
+    def storeResults(self, file, result):
+        # TODO
+        pass
 
 '''
 main method to execute scripts
@@ -65,6 +82,8 @@ def main():
     testFiles = fileProcessor.loadDataFiles(TEST_DOCUMEMENTS)
     
     fileProcessor.processFiles(trainFiles, TRAIN_DOCUMENTS)
+    textProcessor.buildVocabulary()
+    print(textProcessor.getVocabulary())
 
 if __name__ == "__main__":
     main()
