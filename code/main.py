@@ -60,6 +60,14 @@ class FileProcessor:
     
     '''
     Store Vocabulary in given file
+    Following the format: 
+        1 abc 3 0.003 40 0.4
+        2 airplane 3 0.003 40 0.4
+        3 password 40 0.4 50 0.03
+        4 zucchini 0.7 0.003 0 0.000001
+        
+        where; each word is seperated by two spaces,
+        and followed by carriage return at the end of line
     '''
     def storeVocabulary(self, file, vocabulary):
         try:
@@ -72,7 +80,7 @@ class FileProcessor:
                     + str(value[0]) + self.space 
                     + str(value[1]) + self.space 
                     + str(value[2]) + self.space 
-                    + str(value[3]) + "\n")
+                    + str(value[3]) + "\r")
 
                     f.write(lineString)
 

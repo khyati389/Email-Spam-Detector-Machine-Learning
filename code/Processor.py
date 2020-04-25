@@ -123,7 +123,6 @@ class TextProcessor:
     build sorted vocabulary from created word dictionaries
     '''
     def buildVocabulary(self):
-        # Create getter and setter for below properties
         self.sizeOfCorpus = len(self.word_frequency)
         self.sizeOfHam = len(self.words_Ham)
         self.sizeOfSpam = len(self.words_Spam)
