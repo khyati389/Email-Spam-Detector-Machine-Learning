@@ -53,6 +53,9 @@ On the Command Prompt, run the command:
 python main.py
 ```
 
+## Evaluation Matrix
+* Accuracy: <img src="https://latex.codecogs.com/svg.latex?\inline&space;\frac{TP&plus;TN}{TP&plus;TN&plus;FP&plus;FN}" title="\frac{TP+TN}{TP+TN+FP+FN}" />
+
 ## Confusion Matrix
 
 |      | SPAM | HAM |
