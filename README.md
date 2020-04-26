@@ -13,7 +13,7 @@ Steps:
 	.
 	├── Processor.py	# File Processor and Text Processor
 	├── Model.py		# Naive Bayes Classifier
-	├── Main.py		# Entry point of script
+	├── main.py		# Entry point of script
 	├── dataset
 		├── train		# Training dataset
 		├── test	        # Test dataset
@@ -35,7 +35,7 @@ This python file consists of below functionalities:
 
 3. Method for constructing the Confusion Matrix.
 
-## Main.py
+## main.py
 It instantiates the objects to call methods for corpus preparation and training classifier. It also runs classifier on test data and displays the Performance Measures for the built model.
 
 ## Run Code
