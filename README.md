@@ -54,7 +54,10 @@ python main.py
 ```
 
 ## Evaluation Matrix
-* Accuracy: <img src="https://latex.codecogs.com/svg.latex?\inline&space;\frac{TP&plus;TN}{TP&plus;TN&plus;FP&plus;FN}" title="\frac{TP+TN}{TP+TN+FP+FN}" />
+* Accuracy: <img src="https://latex.codecogs.com/svg.latex?\frac{TP&plus;TN}{TP&plus;TN&plus;FP&plus;FN}" title="\frac{TP+TN}{TP+TN+FP+FN}" />
+* Recall : <img src="https://latex.codecogs.com/svg.latex?\frac{TP}{TP&plus;FN}" title="\frac{TP}{TP+FN}" />
+* Precision: <img src="https://latex.codecogs.com/svg.latex?\frac{TP}{TP&plus;FP}" title="\frac{TP}{TP+FP}" />
+* F1-Measure: <img src="https://latex.codecogs.com/svg.latex?\frac{2*&space;Recall&space;*&space;Precision}{Recall&plus;Precision}" title="\frac{2* Recall * Precision}{Recall+Precision}" />
 
 ## Confusion Matrix
 
