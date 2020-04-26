@@ -15,6 +15,10 @@ class NaiveBayesClassifier:
         self.PriorS = 0.0
         self.vocabulary = {}
         self.result = {}
+        self.SPAM_Positive = 0
+        self.SPAM_Negative = 0
+        self.HAM_Positive = 0
+        self.HAM_Negative = 0
     
     def getPriorHam(self):
         return self.PriorH
@@ -27,6 +31,19 @@ class NaiveBayesClassifier:
     
     def setPriorSpam(self, totalDocuments, spamDocuments):
         self.PriorS = math.log10(spamDocuments / totalDocuments)
+
+    '''
+    Method to calculate confusion matrix's variable
+    '''
+    def setConfusionMatrixVar(self, Target, Predicted):
+        if Target == SPAM and Predicted == SPAM:
+            self.SPAM_Positive += 1
+        elif Target == SPAM and Predicted == HAM:
+            self.SPAM_Negative += 1
+        elif Target == HAM and Predicted == HAM:
+            self.HAM_Positive += 1
+        elif Target == HAM and Predicted == SPAM:
+            self.HAM_Negative += 1
 
     '''
     fit the vocabulary for the model
@@ -80,9 +97,54 @@ class NaiveBayesClassifier:
             label = WRONG
         
         self.addClassificationResult(document, predictedClass, scoreHam, scoreSpam, actualClass, label)
+        self.setConfusionMatrixVar(actualClass, predictedClass)
 
     '''
     method to calculate model's accuracy
     '''
     def getAccuracy(self):
         pass
+
+    '''
+    method to calculate model's precison
+    '''
+    def getPrecision(self):
+        pass
+    
+    '''
+    method to calculate model's recall
+    '''
+    def getRecall(self):
+        pass
+
+    '''
+    method to calculate model's f1-measure
+    '''
+    def getF1Measure(self):
+        pass
+    
+    '''
+    method to print confusion matrix
+    '''
+    def printConfusionMatrix(self):
+        SP = str(self.SPAM_Positive)
+        SN = str(self.SPAM_Negative)
+        HP = str(self.HAM_Positive)
+        HN = str(self.HAM_Negative)
+        
+        message = (
+            
+            "          +------------+-----------+" + "\n" +
+            "          |    SPAM    |    HAM    |" + "\n" +
+            "+---------+------------+-----------+" + "\n" +
+            "|  SPAM   |    "+SP+"     |     "+SN+"    |" + "\n" +
+            "+---------+------------+-----------+" + "\n" +
+            "|  HAM    |      "+HN+"     |    "+HP+"    |" + "\n" +
+            "+---------+------------+-----------+" + "\n" 
+        )
+        print("          CONFUSION_MATRIX         "+ "\n")
+        print(message)
+        
+
+
+

@@ -31,18 +31,18 @@ def main():
     # Get the Vocabulary and Store it in a file
     fileProcessor.storeVocabulary(VOCABULARY_DOCUMENT, textProcessor.getVocabulary())
 
-    totalTestDocs, totalHamDocs, totalSpamDocs = fileProcessor.getNumOfDocuments(testFiles)
+    totalTrainDocs, totalHamDocs, totalSpamDocs = fileProcessor.getNumOfDocuments(trainFiles)
 
     # Train Classifier on Vocabulary
     naiveBayesClassifier = NaiveBayesClassifier()
     naiveBayesClassifier.fit(textProcessor.getVocabulary())
-    naiveBayesClassifier.setPriorHam(totalTestDocs, totalHamDocs)
-    naiveBayesClassifier.setPriorSpam(totalTestDocs, totalSpamDocs)
+    naiveBayesClassifier.setPriorHam(totalTrainDocs, totalHamDocs)
+    naiveBayesClassifier.setPriorSpam(totalTrainDocs, totalSpamDocs)
 
     # Run Classifier on Test documents
     for file in testFiles:
             try:
-                with open(str(TEST_DOCUMEMENTS+file), "r", encoding="utf8", errors='ignore') as f:
+                with open(str(TEST_DOCUMEMENTS+file), "r", encoding="latin-1") as f:
                     classType = fileProcessor.getClassType(f)
                     wordsDict = {}
 
@@ -57,6 +57,9 @@ def main():
     
     # Get the Classification result and store it in a file
     fileProcessor.storeClassificationResult(RESULT_DOCUMENT, naiveBayesClassifier.getClassificationResult())
+
+    # Print confusion matrix
+    naiveBayesClassifier.printConfusionMatrix()
 
 if __name__ == "__main__":
     main()

@@ -234,7 +234,7 @@ class FileProcessor:
        
         for file in files:
             try:
-                with open(str(path+file), "r", encoding="utf8", errors='ignore') as f:
+                with open(str(path+file), "r", encoding="latin-1", errors='ignore') as f:
                     classType = self.getClassType(f)
 
                     for line in f:
