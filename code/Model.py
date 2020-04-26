@@ -15,10 +15,10 @@ class NaiveBayesClassifier:
         self.PriorS = 0.0
         self.vocabulary = {}
         self.result = {}
-        self.SPAM_Positive = 0
-        self.SPAM_Negative = 0
-        self.HAM_Positive = 0
-        self.HAM_Negative = 0
+        self.S_True_Positive = 0
+        self.S_False_Negative = 0
+        self.H_True_Negative = 0
+        self.H_False_Positive = 0
     
     def getPriorHam(self):
         return self.PriorH
@@ -37,13 +37,13 @@ class NaiveBayesClassifier:
     '''
     def setConfusionMatrixVar(self, Target, Predicted):
         if Target == SPAM and Predicted == SPAM:
-            self.SPAM_Positive += 1
+            self.S_True_Positive += 1
         elif Target == SPAM and Predicted == HAM:
-            self.SPAM_Negative += 1
+            self.S_False_Negative += 1
         elif Target == HAM and Predicted == HAM:
-            self.HAM_Positive += 1
+            self.H_True_Negative += 1
         elif Target == HAM and Predicted == SPAM:
-            self.HAM_Negative += 1
+            self.H_False_Positive += 1
 
     '''
     fit the vocabulary for the model
@@ -103,22 +103,22 @@ class NaiveBayesClassifier:
     method to calculate model's accuracy
     '''
     def getAccuracy(self):
-        total = self.SPAM_Positive + self.HAM_Positive + self.SPAM_Negative + self.HAM_Negative
-        accuracy = (self.SPAM_Positive + self.HAM_Positive) / total
+        total = self.S_True_Positive + self.H_True_Negative + self.S_False_Negative + self.H_False_Positive
+        accuracy = (self.S_True_Positive + self.H_True_Negative) / total
         return accuracy
 
     '''
     method to calculate model's precison
     '''
     def getPrecision(self):
-        precision = self.SPAM_Positive / (self.SPAM_Positive + self.HAM_Positive)
+        precision = self.S_True_Positive / (self.S_True_Positive + self.H_False_Positive)
         return precision
     
     '''
     method to calculate model's recall
     '''
     def getRecall(self):
-        recall = self.SPAM_Positive / (self.SPAM_Positive + self.HAM_Negative)
+        recall = self.S_True_Positive / (self.S_True_Positive + self.S_False_Negative)
         return recall
 
     '''
@@ -134,19 +134,19 @@ class NaiveBayesClassifier:
     method to print confusion matrix
     '''
     def printConfusionMatrix(self):
-        SP = str(self.SPAM_Positive)
-        SN = str(self.SPAM_Negative)
-        HP = str(self.HAM_Positive)
-        HN = str(self.HAM_Negative)
+        SP = str(self.S_True_Positive)
+        SN = str(self.S_False_Negative)
+        HP = str(self.H_True_Negative)
+        HN = str(self.H_False_Positive)
         
         message = (
             
             "          +------------+-----------+" + "\n" +
             "          |    SPAM    |    HAM    |" + "\n" +
             "+---------+------------+-----------+" + "\n" +
-            "|  SPAM   |    "+SP+"     |     "+SN+"    |" + "\n" +
+            "|  SPAM   |    "+SP+"     |     "+HN+"     |" + "\n" +
             "+---------+------------+-----------+" + "\n" +
-            "|  HAM    |      "+HN+"     |    "+HP+"    |" + "\n" +
+            "|  HAM    |     "+SN+"     |    "+HP+"    |" + "\n" +
             "+---------+------------+-----------+" + "\n" 
         )
         print("          CONFUSION_MATRIX         "+ "\n")
