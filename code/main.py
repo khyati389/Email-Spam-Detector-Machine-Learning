@@ -58,8 +58,12 @@ def main():
     # Get the Classification result and store it in a file
     fileProcessor.storeClassificationResult(RESULT_DOCUMENT, naiveBayesClassifier.getClassificationResult())
 
-    # Print confusion matrix
+    # Print confusion matrix and other Perfomance Measures
     naiveBayesClassifier.printConfusionMatrix()
+    print("Accuracy measure:  "+ str(naiveBayesClassifier.getAccuracy())+ "\n" )
+    print("Precision measure: "+ str(naiveBayesClassifier.getPrecision())+ "\n"  )
+    print("recall measure:    "+ str(naiveBayesClassifier.getRecall())+ "\n"  )
+    print("f1-measure:        "+ str(naiveBayesClassifier.getF1Measure())+ "\n"  )
 
 if __name__ == "__main__":
     main()

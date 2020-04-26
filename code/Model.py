@@ -103,25 +103,32 @@ class NaiveBayesClassifier:
     method to calculate model's accuracy
     '''
     def getAccuracy(self):
-        pass
+        total = self.SPAM_Positive + self.HAM_Positive + self.SPAM_Negative + self.HAM_Negative
+        accuracy = (self.SPAM_Positive + self.HAM_Positive) / total
+        return accuracy
 
     '''
     method to calculate model's precison
     '''
     def getPrecision(self):
-        pass
+        precision = self.SPAM_Positive / (self.SPAM_Positive + self.HAM_Positive)
+        return precision
     
     '''
     method to calculate model's recall
     '''
     def getRecall(self):
-        pass
+        recall = self.SPAM_Positive / (self.SPAM_Positive + self.HAM_Negative)
+        return recall
 
     '''
     method to calculate model's f1-measure
     '''
     def getF1Measure(self):
-        pass
+        precision = self.getPrecision()
+        recall = self.getRecall()
+        f1Mesaure = 2 * ( (precision  * recall) / (precision  + recall) )
+        return f1Mesaure
     
     '''
     method to print confusion matrix
