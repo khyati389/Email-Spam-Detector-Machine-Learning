@@ -3,14 +3,14 @@ A Python-based spam detector using the Naive Bayes approach.
 
 The spam detection process goes through a series of following steps:
 
-1. Common Aspects of Text Mining:
+1. **Common Aspects of Text Mining:**
   * Preparation of Corpus.
   * Corpus Inspection.
   * Cleansing of Corpus.
   * Tokenize the Corpus and count the word frequency.
   * Compute probabilities.
 
-2. Naive Bayes Classifier Approach:
+2. **Naive Bayes Classifier Approach:**
   * Build the Vocabulary of words by separating SPAM and HAM from training data.
   * Store vocabulary of words in a file.
   * Training the classifier on vocabulary.
