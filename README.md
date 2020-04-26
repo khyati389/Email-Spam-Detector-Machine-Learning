@@ -12,7 +12,7 @@ Steps:
 #### File Structure:
 	.
 	├── code
-		├── Processor.py	# Dataset's Text Processor
+		├── Processor.py	# File Processor and Text Processor
 		├── Model.py		# Naive Bayes Classifier
 		├── Main.py		# Entry point of script
 	├── dataset
