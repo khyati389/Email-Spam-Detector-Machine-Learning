@@ -38,12 +38,12 @@ class TextProcessor:
     '''
     Returns the unique words from document
     '''
-    def getWordsFromDocument(self, words, wordsDict):
+    def getWordsFromDocument(self, words):
+        wordsList = []
         for word in words:
             if word != '':
-                if word.lower() not in wordsDict:
-                    wordsDict[word.lower()] = 0
-        return wordsDict
+                wordsList.append(word.lower())
+        return wordsList
 
     '''
     Calculate Frequency Of Word in a class
@@ -234,7 +234,7 @@ class FileProcessor:
        
         for file in files:
             try:
-                with open(str(path+file), "r", encoding="latin-1", errors='ignore') as f:
+                with open(str(path+file), "r", encoding="utf8", errors='ignore') as f:
                     classType = self.getClassType(f)
 
                     for line in f:

@@ -42,15 +42,15 @@ def main():
     # Run Classifier on Test documents
     for file in testFiles:
             try:
-                with open(str(TEST_DOCUMEMENTS+file), "r", encoding="latin-1") as f:
+                with open(str(TEST_DOCUMEMENTS+file), "r", encoding="utf8", errors='ignore') as f:
                     classType = fileProcessor.getClassType(f)
-                    wordsDict = {}
+                    wordsList = []
 
                     for line in f:
                         line = line.strip()
-                        wordsDict = textProcessor.getWordsFromDocument(textProcessor.tokenize(line), wordsDict)
+                        wordsList.extend(textProcessor.getWordsFromDocument(textProcessor.tokenize(line)))
                     
-                    naiveBayesClassifier.predict(file, classType, wordsDict.keys())
+                    naiveBayesClassifier.predict(file, classType, wordsList)
 
             finally:
                 f.close()
