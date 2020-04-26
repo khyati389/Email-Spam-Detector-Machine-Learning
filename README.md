@@ -1,13 +1,21 @@
 # Spam-Detector
 A Python-based spam detector using the Naive Bayes approach.
 
-Steps:
+The spam detection process goes through a series of following steps:
 
-1. Preparing the text data.
-2. Creating word dictionary.
-3. Feature extraction process.
-4. Training the classifier.
-5. Run classifier on the test set.
+1. Common Aspects of Text Mining:
+  * Preparation of Corpus.
+  * Corpus Inspection.
+  * Cleansing of Corpus.
+  * Tokenize the Corpus and count the word frequency.
+  * Compute probabilities.
+
+2. Naive Bayes Classifier Approach:
+  * Build the Vocabulary of words by separating SPAM and HAM from training data.
+  * Store vocabulary of words in a file.
+  * Training the classifier on vocabulary.
+  * Evaluate the performance of model on test data.
+  * Generate Confusion and Evaluation Matrix.
 
 #### File Structure:
 	.
@@ -39,7 +47,22 @@ This python file consists of below functionalities:
 It instantiates the objects to call methods for corpus preparation and training classifier. It also runs classifier on test data and displays the Performance Measures for the built model.
 
 ## Run Code
-Open Command Prompt
+On the Command Prompt, run the command:
 
 ```python
 python main.py
+```
+
+## Confusion Matrix
+
+|      | SPAM | HAM |
+|------|------|-----|
+| SPAM | 336  |  6  |
+| HAM  | 6    | 394 |
+
+## References
+
+* https://www3.nd.edu/~steve/computing_with_data/20_text_mining/text_mining_example.html#/
+* https://towardsdatascience.com/spam-filtering-using-naive-bayes-98a341224038
+* https://medium.com/coinmonks/spam-detector-using-naive-bayes-c22cc740e257
+* https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering
