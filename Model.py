@@ -134,20 +134,19 @@ class NaiveBayesClassifier:
     method to print confusion matrix
     '''
     def printConfusionMatrix(self):
-        SP = str(self.S_True_Positive)
-        SN = str(self.S_False_Negative)
-        HP = str(self.H_True_Negative)
-        HN = str(self.H_False_Positive)
-        
+        TP = str(self.S_True_Positive)
+        FN = str(self.S_False_Negative)
+        TN = str(self.H_True_Negative)
+        FP = str(self.H_False_Positive)
         message = (
             
-            "          +------------+-----------+" + "\n" +
-            "          |    SPAM    |    HAM    |" + "\n" +
-            "+---------+------------+-----------+" + "\n" +
-            "|  SPAM   |    "+SP+"     |     "+HN+"     |" + "\n" +
-            "+---------+------------+-----------+" + "\n" +
-            "|  HAM    |     "+SN+"     |    "+HP+"    |" + "\n" +
-            "+---------+------------+-----------+" + "\n" 
+            "                   +-----------------------+----------------------+" + "\n" +
+            "                   |   (Predicted) SPAM    |   (Predicted) HAM    |" + "\n" +
+            "+------------------+-----------------------+----------------------+" + "\n" +
+            "| (Actual) SPAM    |          "+TP+"          |         "+FN+"           |" + "\n" +
+            "+------------------+-----------------------+----------------------+" + "\n" +
+            "|  (Actual) HAM    |          "+FP+"            |          "+TN+"         |" + "\n" +
+            "+------------------+-----------------------+----------------------+" + "\n" 
         )
         print("          CONFUSION_MATRIX         "+ "\n")
         print(message)
