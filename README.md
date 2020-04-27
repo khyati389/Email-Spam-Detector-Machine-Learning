@@ -61,10 +61,10 @@ python main.py
 
 ## Confusion Matrix
 
-|                  | SPAM (Actual)   | HAM (Actual)   |
+|                  | SPAM (Predicted)   | HAM (Predicted)   |
 |------------------|-----------------|----------------|
-| SPAM (Predicted) |        336      |         6      |
-| HAM (Predicted)  |         64      |       394      |
+| SPAM (Actual) |        336      |         64      |
+| HAM (Actual)  |          6      |       394      |
 
 ## References
 
