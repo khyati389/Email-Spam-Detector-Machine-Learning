@@ -32,7 +32,7 @@ The spam detection process goes through a series of following steps:
 	└── README.md
   
 ## Processor.py
-This file contains code for reading and loading the training and test documents of spam and ham class. It also consists of logic necessary to implement the steps required for classification of email such as tokenization of corpus, calculating frequency of words, computing conditional probabilities, building vocabulary, training the classifier and evaluating performance of model on test data.
+This file contains code for reading and loading the training and test documents of spam and ham class. It also consists of logic necessary to implement the steps required for classification of email such as tokenization of corpus, calculating frequency of words, computing conditional probabilities, building and storing the vocabulary and classification results.
  
 ## Model.py
 This python file consists of below functionalities:
@@ -61,10 +61,10 @@ python main.py
 
 ## Confusion Matrix
 
-|      | SPAM | HAM |
-|------|------|-----|
-| SPAM | 336  |  6  |
-| HAM  | 6    | 394 |
+|                  | SPAM (Actual)   | HAM (Actual)   |
+|------------------|-----------------|----------------|
+| SPAM (Predicted) |        336      |         6      |
+| HAM (Predicted)  |         64      |       394      |
 
 ## References
 
